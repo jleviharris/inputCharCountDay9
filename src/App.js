@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import React, { useState } from "react";
 
 function App() {
+  const [string, setString] = useState("");
+  const [answer, setAnswer] = useState("");
+
+  const checkChar = (string) => {
+    const tempString = string.split(" ").join("");
+    console.log(tempString);
+    setAnswer(`"${string}" has ${tempString.length} characters`);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    checkChar(string);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Input Character Counter</h1>
+      <form onSubmit={handleSubmit}>
+        {" "}
+        <input
+          type="text"
+          value={string}
+          onChange={(e) => setString(e.target.value)}
+        ></input>
+        <button className="bttn">Check</button>
+      </form>
+      <div className="answer">{answer}</div>
     </div>
   );
 }
